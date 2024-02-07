@@ -1,0 +1,24 @@
+<header>
+  <div class="logo">
+    <a href="/">Quentin Tarantino</a>
+  </div>
+  <nav>
+    <ul>
+
+      <li><a id="forReview" href="allReviews">Reviews</a></li>
+
+      <% if (!isAuthenticated && !isAuthenticated2) { %>
+
+      <li><a href="login">Login</a></li>
+      <li><a href="signup">Signup</a></li>
+      <% } else { %>
+
+      <li><a id="forReview" href="myReviews">My Reviews</a></li>
+
+      <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+      </form>
+      <% } %>
+    </ul>
+  </nav>
+</header>

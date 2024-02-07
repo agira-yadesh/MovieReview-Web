@@ -1,0 +1,85 @@
+<%- include('includes/head.ejs')%>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      type="text/css"
+      href="styles/allReview.css"
+    />
+</head>
+  <header>
+    <div class="logo">
+      <a href="/">Quentin Tarantino</a>
+    </div>
+    <nav>
+      <ul>
+        <%if(totalReviews>0){%>
+        <li><a id="forReview" href="review">Post reviews</a></li>
+        <%}%>
+        <% if(isAuthenticated){ %>
+        <li>
+          <li><a id="forReview" href="myReviews">My Reviews</a></li>
+        </li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+  <body>
+    <section id="content">
+      <div id="title">
+        <% if(totalReviews>0){%>
+        <!-- <h1>Movie's Review</h1> -->
+        <h2>Number of Reviews: <%=totalReviews%></h2>
+      </div>
+
+      <!-- Movie Card -->
+      
+      <% reviews.forEach(review =>{%>
+      <div class="movie-card">
+        <!-- Movie Name -->
+        <% if(!review.name==''){%>
+        <h3 class="movie-name">Reviewer Name: <span><%=review.name%></span></h3>
+        <%}%>
+        <h3 class="movie-name">Movie: <span><%=review.movie%></span></h3>
+
+        <!-- Reviews -->
+        <h3 class="reviews">
+          Review:
+          <span><%=review.review%></span>
+        </h3>
+        <% const num = parseInt(review.rating)%>
+        <% if(num==1){%>
+        <h3>Rating: <span class = 'star'>&#9733;</span></h3>
+        <%}%>
+
+        <% if(num==2){%>
+          <h3>Rating: <span class = 'star'>&#9733; &#9733;</span></h3>
+          <%}%>
+
+          <% if(num==3){%>
+            <h3>Rating: <span class = 'star'>&#9733; &#9733; &#9733;</span></h3>
+            <%}%>
+            <% if(num==4){%>
+              <h3>Rating: <span class = 'star'>&#9733; &#9733; &#9733; &#9733;</span></h3>
+              <%}%>
+
+        <% if(num>=5){%>
+          <h3>Rating: <span class = 'star'>&#9733; &#9733; &#9733; &#9733; &#9733;</span></h3>
+          <%}%>
+
+          <h3 class="reviews">
+            <span id = "date"><%=review.date%></span>
+          </h3>
+          
+
+      </div>
+      <% }) %> <% } else { %>
+      <div class="empty">
+        <h2>No reviews yet</h2>
+        <p>Be the first to share your thoughts and write a review!</p>
+        <button><a href="review">Post Review</a></button>
+      </div>
+
+      <% } %>
+    </section>
+  </body>
+</html>

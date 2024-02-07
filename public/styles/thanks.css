@@ -1,0 +1,13 @@
+.container {
+  background-color: rgba(202, 202, 133, 0.199);
+  color: white;
+  position: relative;
+  top: 250px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 600px;
+  margin: 0 auto;
+  padding: 50px;
+  border-radius: 10px;
+}

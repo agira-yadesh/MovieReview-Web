@@ -1,0 +1,55 @@
+<%- include('includes/head.ejs')%>
+    <link rel="stylesheet" type="text/css" href="../styles/review.css" />
+  </head>
+
+  <body>
+    <header id="head">
+      <div class="logo">
+        <a href="/">Quentin Tarantino</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a id= "forReview" href="allReviews">Reviews</a></li>
+          <li><a href="myReviews">My Reviews</a></li>
+ 
+        </ul>
+      </nav>
+    </header>
+   
+
+
+    <section id="formBox">
+
+      <% if (!isAuthenticated) { %>
+
+        <div class="empty">
+          <h2>Not logged in yet!</h2>
+          <p>Login to write your reviews</p>
+          <button><a href="login">Login</a></button>
+          
+        </div>
+  
+      <% } else { %>
+
+    <form id = "form" action="/review" method="POST">
+      <label for="Name">Reviewer Name:</label>
+      <input type="text" id="Name" name="Name" placeholder="Reviewer Name"  />
+      <label for="movieName">Movie Name:</label>
+      <input type="text" id="movieName" name="movieName" placeholder="Movie Name" required />
+
+      <label for="review">Review:</label>
+      <textarea id="review" name="review" rows="4" required placeholder="Review"></textarea>
+      <label for="review">Rating:</label>
+      <input type="number" id="rating" name="Rating" max="5" placeholder="Enter a rating(1-5)" />
+
+      
+      <input type="hidden" id="reviewDate" name="reviewDate" value="">
+
+
+      <button type="submit">Submit</button>
+      <% } %>
+      <!-- <button><a href="/">Back</a></button> -->
+    </form>
+  </section>
+  </body>
+</html>

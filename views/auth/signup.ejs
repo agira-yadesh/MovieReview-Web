@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <style>
+      body {
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #000000;
+        color: white;
+      }
+
+      .container {
+        border: 1px solid yellow;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: rgba(202, 202, 133, 0.199);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        position: relative;
+        top: 250px;
+        max-width: 600px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      label {
+        margin-bottom: 10px;
+      }
+
+      input {
+        padding: 8px;
+        margin-bottom: 15px;
+        width: 250px;
+        box-sizing: border-box;
+      }
+
+      button {
+        padding: 10px;
+        background-color: yellow;
+        color: rgb(0, 0, 0);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../styles/shared.css" />
+  </head>
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+    <div class="container">
+      <h2>Signup</h2>
+      <form action="/signup" method="POST">
+        <label for="mailid">Mail ID:</label>
+        <input type="email" id="mailid" name="mailid" />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" />
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

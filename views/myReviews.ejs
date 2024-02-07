@@ -1,0 +1,116 @@
+<%- include('includes/head.ejs')%>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      type="text/css"
+      href="styles/allReview.css"
+    />
+
+    
+</head>
+  <header>
+    <div class="logo">
+      <a href="/">Quentin Tarantino</a>
+    </div>
+    <nav>
+      <ul>
+        <%if(totalReviews>0){%>
+        <li><a id="forReview" href="review">Post reviews</a></li>
+        <%}%>
+        <li>
+          <!-- <a href="https://en.wikipedia.org/wiki/Quentin_Tarantino">About</a> -->
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <body>
+    <section id="content">
+      <div id="title">
+
+        <% if(isAuthenticated){ %> 
+        <% if(totalReviews>0){%>
+        <!-- <h1>Movie's Review</h1> -->
+        <h2>Number of Reviews: <%=totalReviews%></h2>
+      </div>
+
+      <!-- Movie Card -->
+      <% let numId = 1%>
+      <% reviews.forEach(review =>{%>
+      <div class="movie-card">
+        <!-- Movie Name -->
+        <% if(!review.name==''){%>
+        <h3 class="movie-name"><%= numId %>. Reviewer Name: <span><%=review.name%></span></h3>
+        <%}%>
+        <h3 class="movie-name">Movie: <span><%=review.movie%></span></h3>
+
+        <!-- Reviews -->
+        <h3 class="reviews">
+          Review:
+          <span><%=review.review%></span>
+        </h3>
+        <% const num = parseInt(review.rating)%>
+        <% if(num==1){%>
+        <h3>Rating: <span class = 'star'>&#9733;</span></h3>
+        <%}%>
+
+        <% if(num==2){%>
+          <h3>Rating: <span class = 'star'>&#9733; &#9733;</span></h3>
+          <%}%>
+
+          <% if(num==3){%>
+            <h3>Rating: <span class = 'star'>&#9733; &#9733; &#9733;</span></h3>
+            <%}%>
+            <% if(num==4){%>
+              <h3>Rating: <span class = 'star'>&#9733; &#9733; &#9733; &#9733;</span></h3>
+              <%}%>
+
+        <% if(num>=5){%>
+          <h3>Rating: <span class = 'star'>&#9733; &#9733; &#9733; &#9733; &#9733;</span></h3>
+          <%}%>
+
+          <h3 class="reviews">
+            <span id = "date"><%=review.date%></span>
+          </h3>
+          <div class="deleteBtn">
+          <form action="/delete-review/<%= review.id %>" method="POST" class="deleteForm">
+            <button  type="submit" onclick="confirmDelete(event)">Delete Review</button>
+
+        </form>
+        <form action="/review/<%= review.id %>" method="GET">
+          <button type="submit"  >Update Review</button>
+        </form>
+    </div>
+      </div>
+      <% numId+=1})  %> <% }else { %>
+      <div class="empty">
+        <h2>No reviews yet!</h2>
+        <p>Share your first review</p>
+        <button><a href="review">Post Review</a></button>
+        
+      </div>
+
+      <% } %>
+      <% } else { %>
+
+        <div class="empty">
+          <h2>Not logged in yet!</h2>
+          <button><a href="login">Login</a></button>
+          
+        </div>
+
+      <% } %>
+
+      <script>
+        function confirmDelete(event) {
+                var result = confirm("Are you sure you want to delete this review?");
+                if (!result) {
+                    event.preventDefault();
+                    console.log("Deletion canceled");
+                }
+            }
+    </script>
+    </section>
+    
+  </body>
+</html>
+

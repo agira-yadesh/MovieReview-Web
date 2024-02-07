@@ -1,0 +1,39 @@
+<%- include('../includes/head.ejs')%>
+    <link rel="stylesheet" type="text/css" href="../styles/review.css" />
+  </head>
+
+  <body>
+    <header id="head">
+      <div class="logo">
+        <a href="/">Quentin Tarantino</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a id= "forReview" href="allReviews">Reviews</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Quentin_Tarantino">About</a></li>
+ 
+        </ul>
+      </nav>
+    </header>
+    <section id="formBox">
+    <form id = "form" action="/updateReview/<%= review.id %>" method="POST">
+      <label for="Name">Reviewer Name:</label>
+      <input type="text" id="Name" name="Name" value = "<%= review.name %>"  />
+      <label for="movieName">Movie Name:</label>
+      <input type="text" id="movieName" name="movieName" value = "<%= review.movie %>"  required />
+
+      <label for="review">Review:</label>
+      <textarea id="review" name="review" rows="4" required ><%= review.review %></textarea>
+      <label for="review">Rating:</label>
+      <input type="number" id="rating" name="Rating" max="5" value = "<%= review.rating %>"  />
+
+      
+      <input type="hidden" id="reviewDate" name="reviewDate" value="<%= review.date %>" />
+
+
+      <button type="submit">Submit</button>
+      <!-- <button><a href="/">Back</a></button> -->
+    </form>
+  </section>
+  </body>
+</html>

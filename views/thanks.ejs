@@ -1,0 +1,120 @@
+<%- include('includes/head.ejs')%>
+    <!-- <link rel="stylesheet" href="styles/shared.css" /> -->
+    <!-- <link rel="stylesheet" href="styles/thanks.css" /> -->
+    <style>
+      body {
+        background-color: black;
+      }
+      .container {
+        background-color: rgba(202, 202, 133, 0.199);
+        color: white;
+        position: relative;
+        top: 200px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 600px;
+        margin: 0 auto;
+        padding: 50px;
+        border-radius: 10px;
+      }
+      .container button{
+        background-color: yellow;
+  text-decoration: none;
+  width: 100px;
+  margin: 10px 10px;
+  text-align: center;
+  border: 0;
+  font-size: 14px;
+  padding: 10px;
+  color: black;
+  border-radius: 6px;
+      }
+      #reviewBtn{
+        background-color: rgb(235, 235, 93);
+      }
+      button a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+      .logo a {
+        /* text-decoration: none; */
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        font-size: 38px;
+        color: yellow;
+        text-shadow: 1px 2px black;
+        padding: 20px;
+      }
+      header li {
+        margin-left: 20px;
+        color: yellow;
+        text-shadow: 1px 1px 2px black;
+        font-size: 20px;
+        text-decoration: none;
+        list-style-type: none;
+      }
+
+      body {
+        margin: 0 auto;
+        background-color: black;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 30px;
+        margin: 0 auto;
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        color: yellow;
+      }
+      nav a {
+        text-decoration: none;
+        color: yellow;
+      }
+      header ul {
+        display: flex;
+      }
+
+
+    </style> 
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="/">Quentin Tarantino</a>
+      </div>
+      <nav>
+        <ul>
+          <!-- <li><a id="forReview" href="allReviews">Reviews</a></li> -->
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Quentin_Tarantino">About</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h1>Thanks for the Review!</h1>
+      <p>
+        We appreciate your feedback on Quentin Tarantino ! <br />
+        Explore more and share your thoughts on the unique storytelling and
+        cinematic style of Quentin Tarantino.
+      </p>
+      <div>
+        <button id = "reviewBtn"><a href="/review">Back</a></button>
+      <button><a href="/allReviews">Reviews</a></button>
+      
+    </div>
+    </div>
+  </body>
+</html>
