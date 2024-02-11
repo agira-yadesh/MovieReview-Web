@@ -73,10 +73,12 @@
           </h3>
           <div class="deleteBtn">
           <form action="/delete-review/<%= review.id %>" method="POST" class="deleteForm">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button  type="submit" onclick="confirmDelete(event)">Delete Review</button>
 
         </form>
         <form action="/review/<%= review.id %>" method="GET">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <button type="submit"  >Update Review</button>
         </form>
     </div>

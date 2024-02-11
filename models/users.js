@@ -17,6 +17,12 @@ const Users = sequelize.define('User',{
         type:Sequelize.STRING,
         required: true
 
+    },
+    resetToken:{
+        type: Sequelize.STRING
+    },
+    resetTokenExpiration:{
+        type: Sequelize.DATE
     }
 },
     {

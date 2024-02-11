@@ -7,7 +7,6 @@
 
     <style>
       body {
-        
         align-items: center;
         justify-content: center;
         height: 100vh;
@@ -22,9 +21,9 @@
         border-radius: 10px;
         background-color: rgba(202, 202, 133, 0.199);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: 0 auto ;
+        margin: 0 auto;
         position: relative;
-        top: 250px;
+        top: 200px;
         max-width: 600px;
         justify-content: center;
         text-align: center;
@@ -45,32 +44,101 @@
         margin-bottom: 15px;
         width: 250px;
         box-sizing: border-box;
+        background-color: rgba(233, 233, 71, 0.884);
+        font-size: 18px;
+        color: #333;
       }
 
       button {
-        padding: 10px;
         background-color: yellow;
-        color: rgb(0, 0, 0);
-        border: none;
-        border-radius: 5px;
+        text-decoration: none;
+        width: 100px;
+        margin: 10px auto;
+        text-align: center;
+        border: 0;
+        font-size: 14px;
+        padding: 10px;
+        color: black;
+        border-radius: 2px;
         cursor: pointer;
+      }
+      .reset {
+        color: yellow;
+        padding: 10px;
+      }
+      .invalid {
+        border-color: red;
+      }
+
+      .notification {
+        background-color: yellowgreen;
+        color: #fff;
+        padding: 10px;
+        margin: 0;
+        border-radius: 5px;
+        display: none;
+        position: absolute;
+        width: 98%;
+        text-align: center;
       }
     </style>
     <link rel="stylesheet" type="text/css" href="../styles/shared.css" />
   </head>
   <body>
     <%- include('../includes/navigation.ejs') %>
-    <div class="container">
-      <h2>Login</h2>
-      <form action="/login" method="POST">
-        <label for="mailid">Mail ID:</label>
-        <input type="email" id="mailid" name="mailid" />
+    <div id="notification" class="notification"></div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" />
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const logoutSuccess = urlParams.get("signupSuccess");
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      if (logoutSuccess === "true") {
+        const notificationElement = document.getElementById("notification");
+        notificationElement.textContent = "Signup successful!";
+        notificationElement.style.display = "block";
+
+        setTimeout(() => {
+          notificationElement.style.display = "none";
+
+          const newUrl = window.location.href.split("?")[0];
+          history.replaceState({}, document.title, newUrl);
+        }, 5000);
+      }
+    </script>
+    <main>
+      <div class="container">
+        <h2>Login</h2>
+        <% if(errorMessage){ %>
+        <div class="error"><%= errorMessage %></div>
+        <% } %>
+        <form action="/login" method="POST">
+          <label for="mailid">E-Mail</label>
+          <input
+            class="<%= validationError.find(e=> e.path === 'mailid') ? 'invalid' : '' %>"
+            type="email"
+            id="mailid"
+            name="mailid"
+            value=" <%= input.email %>"
+            required
+            novalidation
+          />
+
+          <label for="password">Password:</label>
+          <input
+            class="<%= validationError.find(e=> e.path === 'password') ? 'invalid' : '' %>"
+            type="password"
+            id="password"
+            name="password"
+            required
+          />
+
+          <a class="reset" href="/reset">Reset Password</a>
+
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </main>
   </body>
 </html>

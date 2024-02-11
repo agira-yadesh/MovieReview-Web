@@ -42,8 +42,6 @@
 
 #top {
   margin: 50px 0px;
-  
- 
 }
 
 #top h2 {
@@ -59,11 +57,9 @@
   margin: 0 20px;
 }
 
-
-
 #movie-display {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   width: 90%;
   margin: 50px auto;
   /* flex-wrap: wrap; */
@@ -71,15 +67,14 @@
   justify-content: center;
 }
 
-#movie-display p{
+#movie-display p {
   color: rgb(255, 255, 255);
 }
-#movie-display img{
+#movie-display img {
   height: 300px;
   width: 100%;
   /* box-shadow: 2px 4px 8px rgb(68, 67, 67); */
   object-fit: contain;
-
 }
 
 li p {
@@ -106,3 +101,14 @@ footer img {
   justify-content: center;
 }
 
+.notification {
+  background-color: yellowgreen;
+  color: #fff;
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+  width: 98%;
+  text-align: center;
+}

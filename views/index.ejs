@@ -4,10 +4,49 @@
 </head>
 
   <body>
+    <div id="notification" class="notification"></div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const logoutSuccess = urlParams.get('logoutSuccess');
+      const loginSuccess = urlParams.get('logged');
+
+      if (logoutSuccess === 'true') {
+          const notificationElement = document.getElementById('notification');
+          notificationElement.textContent = 'Logout successful!';
+          notificationElement.style.display = 'block';
+
+          setTimeout(() => {
+              notificationElement.style.display = 'none';
+
+              const newUrl = window.location.href.split('?')[0];
+              history.replaceState({},document.title,newUrl);
+          }, 5000);
+      }
+      if (loginSuccess === 'true') {
+          const notificationElement = document.getElementById('notification');
+          notificationElement.textContent = 'Login successful!';
+          notificationElement.style.display = 'block';
+
+          setTimeout(() => {
+              notificationElement.style.display = 'none';
+
+              const newUrl = window.location.href.split('?')[0];
+              history.replaceState({},document.title,newUrl);
+          }, 5000);
+      }
+
+  </script>
 
     <%- include('includes/navigation.ejs') %>
+
+
+
     
     <main>
+      <section>
+
+    </section>
       <section id="landing-image">
         <div id="landing-content">
           <h1>Quentin Tarantino Movies</h1>
