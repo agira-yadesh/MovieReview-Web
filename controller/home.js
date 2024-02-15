@@ -1,54 +1,104 @@
 const Review = require("../models/reviews");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
-
-
+const itemPerPage = 9;
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth:{
-    user: 'moviesreviewhub00@gmail.com',
-    pass: 'negv pcxq bmcs xret'
+  service: "gmail",
+  auth: {
+    user: "moviesreviewhub00@gmail.com",
+    pass: "negv pcxq bmcs xret",
   },
 });
 
 exports.reviewPage = function (req, res) {
-  res.render("review", { pgTitle: "write a review" , isAuthenticated: req.session.isLoggedIn, path: ""});
+  res.render("review", {
+    pgTitle: "write a review",
+    isAuthenticated: req.session.isLoggedIn,
+    path: "",
+  });
 };
 
 exports.allreviewPage = function (req, res) {
-  Review.findAll().then((r) => {
-    res.render("allReviews", {
-      totalReviews: r.length,
-      reviews: r,
-      pgTitle: "Movies Review",
-      isAuthenticated: req.session.isLoggedIn,
-      path: ""
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  Review.count()
+    .then((numReviews) => {
+      totalItems = numReviews;
+      console.log(totalItems);
+
+      return Review.findAll({
+        offset: (page - 1) * itemPerPage,
+        limit: itemPerPage,
+      });
+    })
+    .then((r) => {
+      res.render("allReviews", {
+        totalReviews: totalItems,
+        reviews: r,
+        pgTitle: "Movies Review",
+        isAuthenticated: req.session.isLoggedIn,
+        path: "",
+        // reviewsCount: totalItems,
+        currentPage: page,
+        hasNextPage: itemPerPage * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / itemPerPage),
+        pageBtn: itemPerPage > totalItems,
+      });
     });
-  });
 };
 
 exports.myreviewPage = function (req, res) {
+  const page = +req.query.page || 1;
+  let totalItems;
 
-  req.user.getReviews()
-  .then((r) => {
-    res.render("myReviews", {
-      totalReviews: r.length,
-      reviews: r,
-      pgTitle: "My Reviews",
-      isAuthenticated: req.session.isLoggedIn,
-      path: ""
+  Review.count()
+    .then((numReviews) => {
+      totalItems = numReviews;
+      console.log(totalItems);
+      return req.user.getReviews({
+        offset: (page - 1) * itemPerPage,
+        limit: itemPerPage,
+      });
+    })
+    .then((r) => {
+      res.render("myReviews", {
+        totalReviews: totalItems,
+        reviews: r,
+        pgTitle: "My Reviews",
+        isAuthenticated: req.session.isLoggedIn,
+        path: "",
+        currentPage: page,
+        hasNextPage: itemPerPage * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / itemPerPage),
+        pageBtn: totalItems < itemPerPage,
+      });
     });
-  });
 };
 
 exports.landingPage = function (req, res) {
-  console.log('IsAuthenticated:', req.session.isLoggedIn);
-  console.log('Session Object:', req.session);
-   res.render("index", { pgTitle: "Quentin Tarantino's", isAuthenticated: req.session.isLoggedIn, isAuthenticated2: req.query.logged, path: ""});
+  console.log("IsAuthenticated:", req.session.isLoggedIn);
+  console.log("Session Object:", req.session);
+  res.render("index", {
+    pgTitle: "Quentin Tarantino's",
+    isAuthenticated: req.session.isLoggedIn,
+    isAuthenticated2: req.query.logged,
+    path: "",
+  });
 };
 
 exports.thanksPage = function (req, res) {
-  res.render("thanks", { pgTitle: "Thank you", isAuthenticated: req.session.isLoggedIn, path: "" });
+  res.render("thanks", {
+    pgTitle: "Thank you",
+    isAuthenticated: req.session.isLoggedIn,
+    path: "",
+  });
 };
 
 function formatDate(date) {
@@ -62,33 +112,39 @@ function formatDate(date) {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }
 
-
-
 exports.Post = function (req, res, next) {
   currentDate = new Date();
   const name = req.body.Name;
   const movie = req.body.movieName;
   const review = req.body.review;
   const rating = req.body.Rating;
+  const image = req.file;
+  console.log(image);
+
   const date = formatDate(currentDate);
 
+  const imageUrl = image ? image.path : null;
   // Create a review and associate it with the current user
-  req.user.createReview({
-    name: name,
-    movie: movie,
-    review: review,
-    rating: rating,
-    date: date,
-  })
+  req.user
+    .createReview({
+      name: name,
+      movie: movie,
+      review: review,
+      rating: rating,
+      imageUrl: imageUrl,
+      date: date,
+      
+    })
     .then((result) => {
       res.redirect("/thanks");
       const userEmail = req.user.dataValues.email;
-      transporter.sendMail({
-        to: userEmail,
-        from: 'moviesreviewhub00@gmail.com',
-        subject: 'Review Submitted',
-        html: `<h1>Thank you for submitting your review!</h1><p>Your review for ${movie} has been received.</p>`,
-      })
+      transporter
+        .sendMail({
+          to: userEmail,
+          from: "moviesreviewhub00@gmail.com",
+          subject: "Review Submitted",
+          html: `<h1>Thank you for submitting your review!</h1><p>Your review for ${movie} has been received.</p>`,
+        })
         .then((info) => {
           console.log("Email sent successfully:");
         })
@@ -103,8 +159,6 @@ exports.Post = function (req, res, next) {
     });
 };
 
-
-
 // exports.Post = function (req, res, next) {
 //   currentDate = new Date();
 //   const name = req.body.Name;
@@ -117,16 +171,14 @@ exports.Post = function (req, res, next) {
 //       name: name,
 //       movie: movie,
 //       review: review,
-//       rating: rating, 
+//       rating: rating,
 //       date: date,
 //     })
 //     .then((result) => {
 //       res.redirect("/thanks");
 
-      
 //     })
 //     .catch((err) => {
 //       console.log(err);
 //     });
 // };
-

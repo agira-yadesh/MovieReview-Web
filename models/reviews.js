@@ -17,7 +17,12 @@ const Review = sequelize.define('review',{
     },
     review: Sequelize.STRING,
     rating: Sequelize.INTEGER,
-    date:Sequelize.STRING
+    date:Sequelize.STRING,
+    imageUrl: {
+        type:Sequelize.STRING
+
+    },
+
 
 });
 

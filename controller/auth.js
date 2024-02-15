@@ -124,12 +124,12 @@ exports.getLoginPost = (req, res, next) => {
     return res.status(422).render("auth/login", {
       pageTitle: "login",
       isAuthenticated2: req.query.logged,
-      errorMessage: errors.array()[0].msg,
+      errorMessage: "Invalid email or password",
       path: "login",
       input: {
         email:email
       },
-      validationError: errors.array()
+      validationError: []
     });
   }
 
@@ -137,9 +137,16 @@ exports.getLoginPost = (req, res, next) => {
   User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
-        req.flash("error", "Invalid Email or Password");
-        req.session.save(function () {
-          return res.redirect("/login");
+        console.log(errors.array());
+        return res.status(422).render("auth/login", {
+          pageTitle: "login",
+          isAuthenticated2: req.query.logged,
+          errorMessage: errors.array()[0]?.msg || "Invalid email or password",
+          path: "login",
+          input: {
+            email:email
+          },
+          validationError: errors.array()
         });
       }
       bcrypt
@@ -153,9 +160,15 @@ exports.getLoginPost = (req, res, next) => {
               res.redirect("/" + "?logged=true");
             });
           }
-          req.flash("error", "Invalid Email or Password");
-          req.session.save(function () {
-            return res.redirect("/login");
+          return res.status(422).render("auth/login", {
+            pageTitle: "login",
+            isAuthenticated2: req.query.logged,
+            errorMessage: "Invalid email or password",
+            path: "login",
+            input: {
+              email:email
+            },
+            validationError: []
           });
         })
         .catch((err) => {

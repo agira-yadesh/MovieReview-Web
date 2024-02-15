@@ -30,17 +30,23 @@
         <% if(isAuthenticated){ %> 
         <% if(totalReviews>0){%>
         <!-- <h1>Movie's Review</h1> -->
+        <!-- <% let name = reviews%>
+        <h2>Thank you, "<%= name %>", for sharing your thoughts!</h2> -->
+
         <h2>Number of Reviews: <%=totalReviews%></h2>
       </div>
 
       <!-- Movie Card -->
-      <% let numId = 1%>
+      <!-- <% let numId = 1%> -->
       <% reviews.forEach(review =>{%>
       <div class="movie-card">
         <!-- Movie Name -->
-        <% if(!review.name==''){%>
-        <h3 class="movie-name"><%= numId %>. Reviewer Name: <span><%=review.name%></span></h3>
-        <%}%>
+        <!-- <% if(!review.name==''){%>
+        <h3 class="movie-name">Reviewer Name: <span><%=review.name%></span></h3>
+        <%}%> -->
+        <div  class = "poster">
+          <img  src="/<%= review.imageUrl %>" alt="<%= review.movie %>">
+        </div>
         <h3 class="movie-name">Movie: <span><%=review.movie%></span></h3>
 
         <!-- Reviews -->
@@ -74,16 +80,23 @@
           <div class="deleteBtn">
           <form action="/delete-review/<%= review.id %>" method="POST" class="deleteForm">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button  type="submit" onclick="confirmDelete(event)">Delete Review</button>
+            <button class="myreviewBtn"  type="submit" onclick="confirmDelete(event)">Delete Review</button>
 
         </form>
         <form action="/review/<%= review.id %>" method="GET">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit"  >Update Review</button>
+          <button class="myreviewBtn" type="submit"  >Update Review</button>
         </form>
     </div>
       </div>
-      <% numId+=1})  %> <% }else { %>
+      <% numId+=1})  %> 
+      
+
+        <%- include('includes/pagination.ejs')%>
+
+
+      
+      <% }else { %>
       <div class="empty">
         <h2>No reviews yet!</h2>
         <p>Share your first review</p>

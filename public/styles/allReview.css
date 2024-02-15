@@ -13,10 +13,11 @@
   border: 1px solid rgba(233, 233, 32, 0.493);
   padding: 15px;
   margin: 10px auto;
-  width: 60%;
+  width: 40%;
   min-width: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex: 1;
   flex-direction: column;
   flex-wrap: wrap;
   word-wrap: break-word;
@@ -54,11 +55,10 @@ span {
   padding: 50px;
   border-radius: 10px;
 }
-.empty p{
+.empty p {
   color: white;
-
 }
-.empty button{
+.empty button {
   background-color: yellow;
   text-decoration: none;
   width: 100px;
@@ -69,7 +69,6 @@ span {
   padding: 10px;
   color: black;
   border-radius: 2px;
-
 }
 
 button a {
@@ -77,11 +76,11 @@ button a {
   color: rgb(0, 0, 0);
 }
 
-.star{
+.star {
   color: gold;
 }
 
-#date{
+#date {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -89,15 +88,56 @@ button a {
   color: grey;
 }
 
-.deleteBtn{
+.poster {
+  width: 200px;
+}
+
+.poster img{
+  max-width: 100%;
+  height: auto;
+}
+
+.deleteBtn {
   display: flex;
   justify-content: space-between;
- 
-
-
 }
 
-button a{
-  color:black;
+button a {
+  color: black;
 }
 
+.myreviewBtn {
+  background-color: yellow;
+  text-decoration: none;
+  width: 100%;
+  margin: 10px auto;
+  text-align: center;
+  border: 0;
+  font-size: 14px;
+  padding: 10px;
+  color: black;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.page {
+  text-align: center;
+  color: yellow;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.page a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  background: none;
+  border-radius: 50%;
+  border: 1px solid yellow;
+  padding: 5px 10px;
+  margin: 2px;
+}
+
+.page .activePg {
+  color: rgb(0, 0, 0);
+  background: yellow;
+}

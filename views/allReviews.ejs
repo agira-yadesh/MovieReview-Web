@@ -36,6 +36,9 @@
       <% reviews.forEach(review =>{%>
       <div class="movie-card">
         <!-- Movie Name -->
+        <div  class = "poster">
+        <img  src="/<%= review.imageUrl %>" alt="<%= review.movie %>">
+      </div>
         <% if(!review.name==''){%>
         <h3 class="movie-name">Reviewer Name: <span><%=review.name%></span></h3>
         <%}%>
@@ -72,7 +75,16 @@
           
 
       </div>
-      <% }) %> <% } else { %>
+     
+      <% }) %> 
+      
+
+      
+      <%- include('includes/pagination.ejs')%>
+
+
+
+      <% } else { %>
       <div class="empty">
         <h2>No reviews yet</h2>
         <p>Be the first to share your thoughts and write a review!</p>
@@ -81,5 +93,6 @@
 
       <% } %>
     </section>
+   
   </body>
 </html>

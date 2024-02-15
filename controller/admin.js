@@ -31,15 +31,22 @@ exports.updateReview = function (req, res) {
   const rreview = req.body.review || null;
   const rating = req.body.Rating || null;
   const date = req.body.reviewDate || null;
+  const image = req.file;
+  console.log(image)
 
   console.log(Id);
+
   Review.findByPk(Id)
     .then((review) => {
       review.name = name;
       review.movie = movie;
       review.review = rreview;
       review.rating = rating;
+      if(image){
+        review.imageUrl = image.path;
+      }
       review.date = date;
+      
       return review.save();
     })
     .then((result) => {
