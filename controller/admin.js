@@ -1,17 +1,31 @@
 const Review = require("../models/reviews");
 
-exports.deletePost = function (req, res) {
+
+exports.totalReviews = function (req,res){
+
+  Review.count()
+  .then(noofReviews=>{
+    totalItems = noofReviews;
+    res.json(totalItems);
+  })
+
+}
+
+exports.deleteReview = function (req, res) {
+  console.log("hii")
   const reviewId = req.params.id;
   Review.findByPk(reviewId)
     .then((review) => {
       return review.destroy();
     })
-    .then((result) => {
+    .then(() => {
       console.log(`deleted ${reviewId}`);
-      res.redirect("/myReviews");
+      res.status(200).json({ message: 'Success' });
+      // res.redirect("/myReviews");
     })
     .catch((err) => {
       console.error(err);
+      res.status(500).json({message: 'Deleting review failed.'})
     });
 };
 

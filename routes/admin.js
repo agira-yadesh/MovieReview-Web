@@ -3,7 +3,8 @@ const controller= require('../controller/admin');
 
 const router = express.Router();
 
-router.post('/delete-review/:id',controller.deletePost);
+router.delete('/myReviews/:id',controller.deleteReview);
+router.get('/totalReviews',controller.totalReviews);
 router.get('/review/:id',controller.editreviewPage);
 router.post('/updateReview/:id',controller.updateReview);
 
