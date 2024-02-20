@@ -29,7 +29,6 @@ const deleteReview = btn =>{
     .then(data =>{
         console.log(data);
         reviewElement.parentNode.removeChild(reviewElement);
-        window.alert("review deleted")
 
         return fetch('totalReviews');
     })

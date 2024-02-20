@@ -107,17 +107,16 @@ button a {
 }
 
 .myreviewBtn {
+  display: flex;
   background-color: yellow;
   text-decoration: none;
-  width: 100%;
-  margin: 10px auto;
   text-align: center;
   border: 0;
   font-size: 14px;
   padding: 10px;
   color: black;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: pointer; 
 }
 
 .page {

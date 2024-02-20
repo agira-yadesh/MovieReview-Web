@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-
+const bodyParser = require('body-parser');
 const { sequelize } = require("./util/database");
 const Review = require("./models/reviews");
 const User = require("./models/users");
@@ -13,6 +13,7 @@ const multer = require('multer');
 
 
 const app = express();
+app.use(bodyParser.json());
 const store = new SequelizeStore({
   db: sequelize,
   expiration: 24 * 60 * 60 * 1000, // Session expiration time in milliseconds (adjust as needed)
@@ -100,7 +101,7 @@ app.use(error404);
 sequelize
   .sync()
   .then((user) => {
-    app.listen(4000);
+    app.listen(process.env.PORT|| 4000);
   })
   .catch((error) => {
     console.error("Error synchronizing the model with the database:", error);
