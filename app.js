@@ -12,6 +12,7 @@ const flash = require('connect-flash');
 const multer = require('multer');
 
 
+
 const app = express();
 app.use(bodyParser.json());
 const store = new SequelizeStore({
@@ -97,6 +98,7 @@ app.use(adminPage.routes);
 app.use(homePage.routes);
 app.use(authRoutes);
 app.use(error404);
+
 
 sequelize
   .sync()

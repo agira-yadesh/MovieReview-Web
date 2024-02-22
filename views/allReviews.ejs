@@ -36,9 +36,11 @@
       <% reviews.forEach(review =>{%>
       <div class="movie-card">
         <!-- Movie Name -->
+        <% if(img) { %>
         <div  class = "poster">
         <img  src="/<%= review.imageUrl %>" alt="<%= review.movie %>">
       </div>
+      <% } %>
         <% if(!review.name==''){%>
         <h3 class="movie-name">Reviewer Name: <span><%=review.name%></span></h3>
         <%}%>
@@ -93,6 +95,40 @@
 
       <% } %>
     </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+      // Connect to the Socket.IO server
+      const socket = io();
+  
+      // Listen for updated reviews from the server
+      socket.on('updateReviews', (reviewData) => {
+          // Update your UI with the new review
+          // You might append the new review to the review list without reloading the page
+          console.log('Received updated review:', reviewData);
+  
+          // Example: Append the new review to the existing reviews
+          const newReviewHtml = `
+              <!-- New Movie Card -->
+              <div class="movie-card">
+                  <!-- Movie Name -->
+                  <h3 class="movie-name">Movie: <span>${reviewData.movie}</span></h3>
+  
+                  <!-- Reviews -->
+                  <h3 class="reviews">Review: <span>${reviewData.review}</span></h3>
+  
+                  <!-- Rating -->
+                  <h3>Rating: <span class="star">&#9733;</span></h3>
+  
+                  <!-- Date -->
+                  <h3 class="reviews"><span id="date">${reviewData.date}</span></h3>
+              </div>
+          `;
+  
+          // Append the new review to the reviews section
+          document.getElementById('content').insertAdjacentHTML('afterbegin', newReviewHtml);
+      });
+  </script>
+  
    
   </body>
 </html>

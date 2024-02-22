@@ -28,14 +28,17 @@ exports.allreviewPage = function (req, res) {
       console.log(totalItems);
 
       return Review.findAll({
+        order: [['createdAt', 'DESC']],
         offset: (page - 1) * itemPerPage,
         limit: itemPerPage,
       });
     })
     .then((r) => {
+      // console.log("reviews",r)
       res.render("allReviews", {
         totalReviews: totalItems,
         reviews: r,
+        img:r.imageUrl,
         pgTitle: "Movies Review",
         isAuthenticated: req.session.isLoggedIn,
         path: "",
