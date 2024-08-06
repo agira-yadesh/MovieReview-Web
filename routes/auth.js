@@ -14,11 +14,11 @@ router.post(
     .isEmail()
     .withMessage("Please enter a vaild email")
     .normalizeEmail(),
-  body(
-    "password",
-    "Please enter a password with only numbers and text of at least 5 characters."
-  )
+  body("password")
     .isLength({ min: 5 })
+    .withMessage(
+      "Please enter a password with only numbers and text of at least 5 characters."
+    )
     .isAlphanumeric()
     .trim(),
   authController.getLoginPost

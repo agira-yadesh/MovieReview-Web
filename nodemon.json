@@ -1,0 +1,9 @@
+{
+    "env":{
+        "DB_NAME":"movie_review2",
+        "DB_USER":"root",
+        "DB_PASSWORD":"password",
+        "DB_HOST":"localhost"
+        
+    }
+}

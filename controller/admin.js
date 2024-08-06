@@ -40,7 +40,7 @@ exports.editreviewPage = function (req, res) {
 
 exports.updateReview = function (req, res) {
   const Id = req.params.id;
-  const name = req.body.Name || null; // Use null if the value is undefined
+  const name = req.body.Name || null; 
   const movie = req.body.movieName || null;
   const rreview = req.body.review || null;
   const rating = req.body.Rating || null;

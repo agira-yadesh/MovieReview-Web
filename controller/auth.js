@@ -41,7 +41,7 @@ exports.getSignupPost = (req, res, next) => {
 
   const errors = validationResult(req);
   if(!errors.isEmpty()){
-    console.log(errors.array());
+    // console.log(errors.array());
     return res.status(422).render("auth/signup", {
       pageTitle: "Signup",
       isAuthenticated2: req.query.logged,
@@ -55,16 +55,6 @@ exports.getSignupPost = (req, res, next) => {
     });
   }
 
-  // User.findOne({ where: { email } })
-  //   .then((existingUser) => {
-  //     if (existingUser) {
-  //       req.flash("error", "Email already exist do login");
-
-  //       req.session.save(function () {
-  //         return res.redirect("/signup");
-  //       });
-  //       return;
-  //     }
 
        bcrypt
         .hash(password, 12)
@@ -102,7 +92,7 @@ exports.getLogin = (req, res, next) => {
   } else {
     message = null;
   }
-  console.log(message);
+  // console.log(message);
   res.render("auth/login", {
     pageTitle: "Login",
     errorMessage: message,
@@ -120,7 +110,7 @@ exports.getLoginPost = (req, res, next) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()){
-    console.log(errors.array());
+    
     return res.status(422).render("auth/login", {
       pageTitle: "login",
       isAuthenticated2: req.query.logged,
@@ -137,7 +127,6 @@ exports.getLoginPost = (req, res, next) => {
   User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
-        console.log(errors.array());
         return res.status(422).render("auth/login", {
           pageTitle: "login",
           isAuthenticated2: req.query.logged,
@@ -156,7 +145,7 @@ exports.getLoginPost = (req, res, next) => {
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save((err) => {
-              console.log(err);
+              // console.log(err);
               res.redirect("/" + "?logged=true");
             });
           }
@@ -308,37 +297,5 @@ exports.postNewPassword = (req, res, next) => {
   });
 };
 
-
-// exports.postNewPassword = (req, res, next) => {
-//   const newPassword = req.body.password;
-//   const userId = req.body.userId;
-//   const passwordToken = req.body.passwordToken;
-//   let resetUser;
-
-//   User.findOne({
-//     where: {
-//       resetToken: passwordToken,
-//       resetTokenExpiration: { $gt: Date.now() },
-//       id: userId
-//     },
-//   })
-//   .then(user => {
-//     resetUser = user;
-//     return bcrypt.hash(newPassword, 12);
-
-//   })
-//   .then(hashedPassword => {
-//     resetUser.password = hashedPassword;
-//     resetUser.resetToken = undefined;
-//     resetUser.resetTokenExpiration = undefined;
-//     return resetUser.save();
-//   })
-//   .then(result => {
-//     res.redirect('/login');
-//   })
-//   .catch(err=>{
-//     console.log(err);
-//   });
-// };
 
 // negv pcxq bmcs xret

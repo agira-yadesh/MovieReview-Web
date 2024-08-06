@@ -34,7 +34,7 @@ exports.allreviewPage = function (req, res) {
       });
     })
     .then((r) => {
-      // console.log("reviews",r)
+      
       res.render("allReviews", {
         totalReviews: totalItems,
         reviews: r,
@@ -42,7 +42,6 @@ exports.allreviewPage = function (req, res) {
         pgTitle: "Movies Review",
         isAuthenticated: req.session.isLoggedIn,
         path: "",
-        // reviewsCount: totalItems,
         currentPage: page,
         hasNextPage: itemPerPage * page < totalItems,
         hasPreviousPage: page > 1,
@@ -86,8 +85,8 @@ exports.myreviewPage = function (req, res) {
 };
 
 exports.landingPage = function (req, res) {
-  console.log("IsAuthenticated:", req.session.isLoggedIn);
-  console.log("Session Object:", req.session);
+  // console.log("IsAuthenticated:", req.session.isLoggedIn);
+  // console.log("Session Object:", req.session);
   res.render("index", {
     pgTitle: "Quentin Tarantino's",
     isAuthenticated: req.session.isLoggedIn,
@@ -127,7 +126,7 @@ exports.Post = function (req, res, next) {
   const date = formatDate(currentDate);
 
   const imageUrl = image ? image.path : null;
-  // Create a review and associate it with the current user
+
   req.user
     .createReview({
       name: name,
@@ -157,31 +156,8 @@ exports.Post = function (req, res, next) {
     })
     .catch((err) => {
       console.log(err);
-      // Handle the error, e.g., send an error response
       res.status(500).send("Internal Server Error");
     });
 };
 
-// exports.Post = function (req, res, next) {
-//   currentDate = new Date();
-//   const name = req.body.Name;
-//   const movie = req.body.movieName;
-//   const review = req.body.review;
-//   const rating = req.body.Rating;
-//   const date = formatDate(currentDate);
 
-//   req.user.createReview({
-//       name: name,
-//       movie: movie,
-//       review: review,
-//       rating: rating,
-//       date: date,
-//     })
-//     .then((result) => {
-//       res.redirect("/thanks");
-
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
